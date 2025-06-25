@@ -11,7 +11,7 @@ IF "%MODE%"=="development" GOTO DEV
 :PROD
 echo Starting Unghost Agent in [PRODUCTION] mode...
 start uv run server.py
-cd web
+cd front
 start pnpm start
 REM Wait for user to close
 GOTO END
@@ -19,7 +19,7 @@ GOTO END
 :DEV
 echo Starting Unghost Agent in [DEVELOPMENT] mode...
 start uv run server.py --reload
-cd web
+cd front
 start pnpm dev
 REM Wait for user to close
 pause
