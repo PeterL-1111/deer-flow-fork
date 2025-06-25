@@ -1,51 +1,24 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg xmlns="http://www.w3.org/2000/svg" width="400" height="400" viewBox="0 0 400 400">
-  <defs>
-    <linearGradient id="ghostGradient" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" style="stop-color:#4F46E5;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#6366F1;stop-opacity:1" />
-    </linearGradient>
-    <linearGradient id="messageGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-      <stop offset="0%" style="stop-color:#10B981;stop-opacity:1" />
-      <stop offset="100%" style="stop-color:#34D399;stop-opacity:1" />
-    </linearGradient>
-  </defs>
+<svg width="400" height="400" viewBox="0 0 400 400" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <path d="M200 50C117.157 50 50 117.157 50 200C50 282.843 117.157 350 200 350C282.843 350 350 282.843 350 200C350 117.157 282.843 50 200 50Z" fill="white"/>
+  <path d="M200 80C134.772 80 82 132.772 82 198C82 263.228 134.772 316 200 316C265.228 316 318 263.228 318 198C318 132.772 265.228 80 200 80Z" fill="#5046E5" fill-opacity="0.1"/>
+  <path d="M200 100C145.817 100 102 143.817 102 198C102 252.183 145.817 296 200 296C254.183 296 298 252.183 298 198C298 143.817 254.183 100 200 100Z" fill="#5046E5" fill-opacity="0.2"/>
+  <path d="M200 120C156.863 120 122 154.863 122 198C122 241.137 156.863 276 200 276C243.137 276 278 241.137 278 198C278 154.863 243.137 120 200 120Z" fill="#5046E5" fill-opacity="0.3"/>
+  <path d="M200 140C167.909 140 142 165.909 142 198C142 230.091 167.909 256 200 256C232.091 256 258 230.091 258 198C258 165.909 232.091 140 200 140Z" fill="#5046E5" fill-opacity="0.4"/>
+  <path d="M200 160C178.954 160 162 176.954 162 198C162 219.046 178.954 236 200 236C221.046 236 238 219.046 238 198C238 176.954 221.046 160 200 160Z" fill="#5046E5" fill-opacity="0.5"/>
+  <path d="M200 180C190 180 182 188 182 198C182 208 190 216 200 216C210 216 218 208 218 198C218 188 210 180 200 180Z" fill="#5046E5" fill-opacity="0.6"/>
   
-  <!-- Ghost Body -->
-  <path d="M200 60 C160 60 130 90 130 130 L130 280 C130 300 140 310 150 310 C160 310 170 300 180 290 C190 300 210 300 220 290 C230 300 250 300 260 290 C270 300 280 310 290 310 C300 310 310 300 310 280 L310 130 C310 90 280 60 240 60 Z" 
-        fill="url(#ghostGradient)" 
-        stroke="none"/>
+  <!-- Ghost body -->
+  <path d="M240 140C240 118.954 223.046 102 202 102H198C176.954 102 160 118.954 160 140V220C160 231.046 168.954 240 180 240H220C231.046 240 240 231.046 240 220V140Z" fill="#5046E5"/>
   
-  <!-- Ghost Eyes -->
-  <circle cx="175" cy="140" r="8" fill="#1F2937"/>
-  <circle cx="225" cy="140" r="8" fill="#1F2937"/>
+  <!-- Ghost bottom curves -->
+  <path d="M160 220V240C160 251.046 151.046 260 140 260C151.046 260 160 268.954 160 280V300" stroke="#5046E5" stroke-width="20" stroke-linecap="round"/>
+  <path d="M200 240V260C200 271.046 191.046 280 180 280C191.046 280 200 288.954 200 300V320" stroke="#5046E5" stroke-width="20" stroke-linecap="round"/>
+  <path d="M240 220V240C240 251.046 248.954 260 260 260C248.954 260 240 268.954 240 280V300" stroke="#5046E5" stroke-width="20" stroke-linecap="round"/>
   
-  <!-- Ghost Mouth (subtle smile) -->
-  <path d="M185 170 Q200 180 215 170" 
-        stroke="#1F2937" 
-        stroke-width="3" 
-        fill="none" 
-        stroke-linecap="round"/>
+  <!-- Ghost eyes -->
+  <circle cx="180" cy="160" r="10" fill="white"/>
+  <circle cx="220" cy="160" r="10" fill="white"/>
   
-  <!-- Message Bubble -->
-  <circle cx="280" cy="120" r="45" fill="url(#messageGradient)" opacity="0.9"/>
-  
-  <!-- Message Lines -->
-  <line x1="260" y1="110" x2="300" y2="110" stroke="white" stroke-width="3" stroke-linecap="round"/>
-  <line x1="260" y1="120" x2="295" y2="120" stroke="white" stroke-width="3" stroke-linecap="round"/>
-  <line x1="260" y1="130" x2="290" y2="130" stroke="white" stroke-width="3" stroke-linecap="round"/>
-  
-  <!-- Message Bubble Tail -->
-  <path d="M250 140 L240 155 L260 150 Z" fill="url(#messageGradient)" opacity="0.9"/>
-  
-  <!-- AI Circuit Pattern (subtle) -->
-  <g opacity="0.3">
-    <circle cx="160" cy="200" r="2" fill="#E5E7EB"/>
-    <circle cx="180" cy="220" r="2" fill="#E5E7EB"/>
-    <circle cx="220" cy="220" r="2" fill="#E5E7EB"/>
-    <circle cx="240" cy="200" r="2" fill="#E5E7EB"/>
-    <line x1="160" y1="200" x2="180" y2="220" stroke="#E5E7EB" stroke-width="1"/>
-    <line x1="180" y1="220" x2="220" y2="220" stroke="#E5E7EB" stroke-width="1"/>
-    <line x1="220" y1="220" x2="240" y2="200" stroke="#E5E7EB" stroke-width="1"/>
-  </g>
-</svg> 
+  <!-- Message bubble -->
+  <path d="M260 140C260 129.954 268.954 121 280 121H300C311.046 121 320 129.954 320 140V160C320 171.046 311.046 180 300 180H290L280 200L280 180C268.954 180 260 171.046 260 160V140Z" fill="#10B981"/>
+</svg>

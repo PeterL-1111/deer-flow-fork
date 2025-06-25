@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Static File Test</title>
+  <style>
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+      margin: 0;
+      padding: 40px;
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .container {
+      background: white;
+      padding: 40px;
+      border-radius: 12px;
+      box-shadow: 0 20px 40px rgba(0,0,0,0.1);
+      text-align: center;
+      max-width: 500px;
+    }
+    h1 {
+      color: #333;
+      margin-bottom: 20px;
+    }
+    p {
+      color: #666;
+      line-height: 1.6;
+    }
+    .status {
+      background: #e8f5e8;
+      color: #2d5a2d;
+      padding: 12px;
+      border-radius: 6px;
+      margin-top: 20px;
+    }
+    img {
+      max-width: 100px;
+      margin: 20px 0;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>Static File Test</h1>
+    <p>If you can see this page, static file serving is working correctly.</p>
+    <img src="/images/unghost-agent-icon.svg" alt="Unghost Agent Icon">
+    <div class="status">
+      ✅ Static files are being served correctly
+    </div>
+  </div>
+</body>
+</html>
