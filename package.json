@@ -4,7 +4,8 @@
   "description": "AI-powered research and content generation platform",
   "main": "scripts/run-dev.js",
   "scripts": {
-    "dev": "node scripts/run-dev.js",
+    "dev": "python3 main-simple.py",
+    "dev:full": "node scripts/run-dev.js",
     "dev:simple": "python3 main-simple.py",
     "dev:fallback": "echo 'Starting fallback mode...' && python3 main-simple.py",
     "build": "echo 'Build script not implemented'",
