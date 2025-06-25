@@ -3,6 +3,7 @@
 
 import { Loader2 } from "lucide-react";
 import { useCallback, useState } from "react";
+import { motion } from "framer-motion";
 
 import { Button } from "~/components/ui/button";
 import {
@@ -124,21 +125,21 @@ export function AddMCPServerDialog({
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogTrigger asChild>
-        <Button size="sm">Add Servers</Button>
+        <Button size="sm" className="bg-ghost-gradient text-white hover:opacity-90">Add Servers</Button>
       </DialogTrigger>
       <DialogContent className="sm:max-w-[560px]">
         <DialogHeader>
-          <DialogTitle>Add New MCP Servers</DialogTitle>
+          <DialogTitle className="text-xl">Add New MCP Servers</DialogTitle>
         </DialogHeader>
         <DialogDescription>
           Unghost Agent uses the standard JSON MCP config to create a new server.
           <br />
-          Paste your config below and click &quot;Add&quot; to add new servers.
+          Paste your config below and click "Add" to add new servers.
         </DialogDescription>
 
         <main>
           <Textarea
-            className="h-[360px] sm:max-w-[510px] break-all"
+            className="h-[360px] sm:max-w-[510px] break-all font-mono text-sm"
             placeholder={
               'Example:\n\n{\n  "mcpServers": {\n    "My Server": {\n      "command": "python",\n      "args": [\n        "-m", "mcp_server"\n      ],\n      "env": {\n        "API_KEY": "YOUR_API_KEY"\n      }\n    }\n  }\n}'
             }
@@ -157,13 +158,12 @@ export function AddMCPServerDialog({
                 Cancel
               </Button>
               <Button
-                className="w-24"
+                className="w-24 bg-ghost-gradient hover:opacity-90"
                 type="submit"
                 disabled={!input.trim() || !!validationError || processing}
                 onClick={handleAdd}
               >
-                {processing && <Loader2 className="animate-spin" />}
-                Add
+                {processing ? <Loader2 className="animate-spin" /> : "Add"}
               </Button>
             </div>
           </div>

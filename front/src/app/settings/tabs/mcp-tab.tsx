@@ -58,17 +58,30 @@ export const MCPTab: Tab = ({ settings, onChange }) => {
     },
     [onChange, settings],
   );
-  const animationProps = {
-    initial: { backgroundColor: "gray" },
-    animate: { backgroundColor: "transparent" },
-    transition: { duration: 1 },
-    style: {
-      transition: "background-color 1s ease-out",
-    },
+  
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
   };
+
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0 }
+  };
+  
   return (
-    <div className="flex flex-col gap-6">
-      <header>
+    <motion.div 
+      className="flex flex-col gap-6"
+      variants={container}
+      initial="hidden"
+      animate="show"
+    >
+      <motion.header variants={item}>
         <div className="flex items-center justify-between gap-2">
           <div>
             <h1 className="text-xl font-semibold text-foreground">MCP Servers</h1>
@@ -88,16 +101,19 @@ export const MCPTab: Tab = ({ settings, onChange }) => {
             Learn more about MCP
           </a>
         </div>
-      </header>
-      <main>
+      </motion.header>
+      <motion.main variants={item}>
         <ul id="mcp-servers-list" className="grid gap-4 sm:grid-cols-2">
           {servers.length === 0 ? (
-            <div className="col-span-2 flex flex-col items-center justify-center p-8 text-center border rounded-xl bg-muted/10">
+            <motion.div 
+              className="col-span-2 flex flex-col items-center justify-center p-8 text-center border rounded-xl bg-muted/10"
+              variants={item}
+            >
               <Blocks className="h-12 w-12 text-muted-foreground mb-4" />
               <h3 className="text-lg font-medium">No MCP Servers</h3>
               <p className="text-muted-foreground mt-2 mb-4">Add MCP servers to extend Unghost Agent's capabilities</p>
               <AddMCPServerDialog onAdd={handleAddServers} />
-            </div>
+            </motion.div>
           ) : (
             servers.map((server) => {
               const isNew =
@@ -105,11 +121,13 @@ export const MCPTab: Tab = ({ settings, onChange }) => {
                 server.createdAt > Date.now() - 1000 * 60 * 60 * 1;
               return (
                 <motion.li
-                  className={
-                    "!bg-card group relative overflow-hidden rounded-xl border pb-2 shadow-sm hover:shadow-md transition-all duration-300"
-                  }
+                  className={cn(
+                    "!bg-card group relative overflow-hidden rounded-xl border pb-2 shadow-soft hover:shadow-md transition-all duration-300",
+                    newlyAdded && isNew && "shadow-glow"
+                  )}
                   key={server.name}
-                  {...(isNew && newlyAdded && animationProps)}
+                  variants={item}
+                  whileHover={{ y: -4 }}
                 >
                   <div className="absolute top-3 right-2">
                     <Tooltip title="Enable/disable server">
@@ -195,8 +213,8 @@ export const MCPTab: Tab = ({ settings, onChange }) => {
             })
           )}
         </ul>
-      </main>
-    </div>
+      </motion.main>
+    </motion.div>
   );
 };
 MCPTab.icon = Blocks;

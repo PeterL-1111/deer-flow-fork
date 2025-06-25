@@ -6,6 +6,7 @@ import { Settings } from "lucide-react";
 import { useEffect, useMemo } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
+import { motion } from "framer-motion";
 
 import {
   Form,
@@ -85,191 +86,244 @@ export const GeneralTab: Tab = ({
     }
   }, [currentSettings, onChange, settings.general]);
 
+  const container = {
+    hidden: { opacity: 0 },
+    show: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.1
+      }
+    }
+  };
+
+  const item = {
+    hidden: { opacity: 0, y: 20 },
+    show: { opacity: 1, y: 0 }
+  };
+
   return (
-    <div className="flex flex-col gap-6">
-      <header>
+    <motion.div 
+      className="flex flex-col gap-6"
+      variants={container}
+      initial="hidden"
+      animate="show"
+    >
+      <motion.header variants={item}>
         <h1 className="text-xl font-semibold text-foreground">General Settings</h1>
         <p className="text-muted-foreground text-sm mt-1">Configure how Unghost Agent works for you</p>
-      </header>
-      <main className="space-y-8">
-        <Form {...form}>
-          <form className="space-y-8">
-            <div className="p-6 rounded-xl border bg-card/50 backdrop-blur-sm shadow-sm">
-              <h2 className="text-lg font-medium mb-4">Your Profile</h2>
+      </motion.header>
+      <Form {...form}>
+        <form className="space-y-8">
+          <motion.div 
+            variants={item}
+            className="p-6 rounded-xl border bg-card/50 backdrop-blur-sm shadow-soft"
+          >
+            <h2 className="text-lg font-medium mb-4 text-primary">Your Profile</h2>
+            <FormField
+              control={form.control}
+              name="userBackground"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Your Professional Background</FormLabel>
+                  <FormControl>
+                    <Textarea
+                      placeholder="Provide a brief description of your professional background, role, and goals. This will help Unghost Agent tailor outreach messages to your unique voice and objectives."
+                      {...field}
+                      className="min-h-[120px] resize-y"
+                    />
+                  </FormControl>
+                  <FormDescription>
+                    This information will be used to personalize your outreach messages and make them more authentic to your professional voice.
+                  </FormDescription>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+          </motion.div>
+
+          <motion.div 
+            variants={item}
+            className="p-6 rounded-xl border bg-card/50 backdrop-blur-sm shadow-soft"
+          >
+            <h2 className="text-lg font-medium mb-4 text-primary">Workflow Settings</h2>
+            <div className="space-y-6">
               <FormField
                 control={form.control}
-                name="userBackground"
+                name="autoAcceptedPlan"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4 shadow-sm">
+                    <div className="space-y-0.5">
+                      <FormLabel className="text-base">Auto-Accept Plans</FormLabel>
+                      <FormDescription>
+                        Automatically accept research plans without manual review
+                      </FormDescription>
+                    </div>
+                    <FormControl>
+                      <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={form.control}
+                name="enableDeepThinking"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4 shadow-sm">
+                    <div className="space-y-0.5">
+                      <FormLabel className="text-base">Deep Thinking Mode</FormLabel>
+                      <FormDescription>
+                        Enable more thorough reasoning for complex tasks
+                      </FormDescription>
+                    </div>
+                    <FormControl>
+                      <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={form.control}
+                name="enableBackgroundInvestigation"
+                render={({ field }) => (
+                  <FormItem className="flex flex-row items-center justify-between rounded-lg border p-4 shadow-sm">
+                    <div className="space-y-0.5">
+                      <FormLabel className="text-base">Background Investigation</FormLabel>
+                      <FormDescription>
+                        Perform web searches before planning to enhance context
+                      </FormDescription>
+                    </div>
+                    <FormControl>
+                      <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                  </FormItem>
+                )}
+              />
+            </div>
+          </motion.div>
+
+          <motion.div 
+            variants={item}
+            className="p-6 rounded-xl border bg-card/50 backdrop-blur-sm shadow-soft"
+          >
+            <h2 className="text-lg font-medium mb-4 text-primary">Advanced Settings</h2>
+            <div className="grid gap-6 sm:grid-cols-2">
+              <FormField
+                control={form.control}
+                name="maxPlanIterations"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Your Professional Background</FormLabel>
+                    <FormLabel>Max plan iterations</FormLabel>
                     <FormControl>
-                      <Textarea
-                        placeholder="Provide a brief description of your professional background, role, and goals. This will help Unghost Agent tailor outreach messages to your unique voice and objectives."
-                        {...field}
-                        className="min-h-[120px] resize-y"
+                      <Input
+                        className="w-full"
+                        type="number"
+                        defaultValue={field.value}
+                        min={1}
+                        onChange={(event) =>
+                          field.onChange(parseInt(event.target.value || "0"))
+                        }
                       />
                     </FormControl>
                     <FormDescription>
-                      This information will be used to personalize your outreach messages and make them more authentic to your professional voice.
+                      Set to 1 for single-step planning. Set to 2 or more to
+                      enable re-planning.
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={form.control}
+                name="maxStepNum"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Max steps of a research plan</FormLabel>
+                    <FormControl>
+                      <Input
+                        className="w-full"
+                        type="number"
+                        defaultValue={field.value}
+                        min={1}
+                        onChange={(event) =>
+                          field.onChange(parseInt(event.target.value || "0"))
+                        }
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      By default, each research plan has 3 steps.
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={form.control}
+                name="maxSearchResults"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Max search results</FormLabel>
+                    <FormControl>
+                      <Input
+                        className="w-full"
+                        type="number"
+                        defaultValue={field.value}
+                        min={1}
+                        onChange={(event) =>
+                          field.onChange(parseInt(event.target.value || "0"))
+                        }
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      By default, each search step has 3 results.
+                    </FormDescription>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+              
+              <FormField
+                control={form.control}
+                name="reportStyle"
+                render={({ field }) => (
+                  <FormItem>
+                    <FormLabel>Default Report Style</FormLabel>
+                    <FormControl>
+                      <select
+                        className="w-full h-9 rounded-md border border-input bg-transparent px-3 py-1 text-sm shadow-xs"
+                        value={field.value}
+                        onChange={(e) => field.onChange(e.target.value as any)}
+                      >
+                        <option value="aggressive">Aggressive</option>
+                        <option value="conservative">Conservative</option>
+                        <option value="go_nuts">Go Nuts</option>
+                        <option value="friendly">Friendly</option>
+                      </select>
+                    </FormControl>
+                    <FormDescription>
+                      Choose your preferred writing style for outreach messages.
                     </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}
               />
             </div>
-
-            <div className="p-6 rounded-xl border bg-card/50 backdrop-blur-sm shadow-sm">
-              <h2 className="text-lg font-medium mb-4">Workflow Settings</h2>
-              <div className="space-y-6">
-                <FormField
-                  control={form.control}
-                  name="autoAcceptedPlan"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3">
-                      <div className="space-y-0.5">
-                        <FormLabel className="text-base">Auto-Accept Plans</FormLabel>
-                        <FormDescription>
-                          Automatically accept research plans without manual review
-                        </FormDescription>
-                      </div>
-                      <FormControl>
-                        <Switch
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-                
-                <FormField
-                  control={form.control}
-                  name="enableDeepThinking"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3">
-                      <div className="space-y-0.5">
-                        <FormLabel className="text-base">Deep Thinking Mode</FormLabel>
-                        <FormDescription>
-                          Enable more thorough reasoning for complex tasks
-                        </FormDescription>
-                      </div>
-                      <FormControl>
-                        <Switch
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-                
-                <FormField
-                  control={form.control}
-                  name="enableBackgroundInvestigation"
-                  render={({ field }) => (
-                    <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3">
-                      <div className="space-y-0.5">
-                        <FormLabel className="text-base">Background Investigation</FormLabel>
-                        <FormDescription>
-                          Perform web searches before planning to enhance context
-                        </FormDescription>
-                      </div>
-                      <FormControl>
-                        <Switch
-                          checked={field.value}
-                          onCheckedChange={field.onChange}
-                        />
-                      </FormControl>
-                    </FormItem>
-                  )}
-                />
-              </div>
-            </div>
-
-            <div className="p-6 rounded-xl border bg-card/50 backdrop-blur-sm shadow-sm">
-              <h2 className="text-lg font-medium mb-4">Advanced Settings</h2>
-              <div className="grid gap-6 sm:grid-cols-2">
-                <FormField
-                  control={form.control}
-                  name="maxPlanIterations"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Max plan iterations</FormLabel>
-                      <FormControl>
-                        <Input
-                          className="w-full"
-                          type="number"
-                          defaultValue={field.value}
-                          min={1}
-                          onChange={(event) =>
-                            field.onChange(parseInt(event.target.value || "0"))
-                          }
-                        />
-                      </FormControl>
-                      <FormDescription>
-                        Set to 1 for single-step planning. Set to 2 or more to
-                        enable re-planning.
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                
-                <FormField
-                  control={form.control}
-                  name="maxStepNum"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Max steps of a research plan</FormLabel>
-                      <FormControl>
-                        <Input
-                          className="w-full"
-                          type="number"
-                          defaultValue={field.value}
-                          min={1}
-                          onChange={(event) =>
-                            field.onChange(parseInt(event.target.value || "0"))
-                          }
-                        />
-                      </FormControl>
-                      <FormDescription>
-                        By default, each research plan has 3 steps.
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-                
-                <FormField
-                  control={form.control}
-                  name="maxSearchResults"
-                  render={({ field }) => (
-                    <FormItem>
-                      <FormLabel>Max search results</FormLabel>
-                      <FormControl>
-                        <Input
-                          className="w-full"
-                          type="number"
-                          defaultValue={field.value}
-                          min={1}
-                          onChange={(event) =>
-                            field.onChange(parseInt(event.target.value || "0"))
-                          }
-                        />
-                      </FormControl>
-                      <FormDescription>
-                        By default, each search step has 3 results.
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  )}
-                />
-              </div>
-            </div>
-          </form>
-        </Form>
-      </main>
-    </div>
+          </motion.div>
+        </form>
+      </Form>
+    </motion.div>
   );
 };
 

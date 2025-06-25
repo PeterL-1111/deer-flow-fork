@@ -2,6 +2,7 @@
 // SPDX-License-Identifier: MIT
 
 import { MessageSquare, TrendingUp, Users, Heart, Briefcase, Handshake, Target, UserCheck } from "lucide-react";
+import { motion } from "framer-motion";
 
 import { BentoCard } from "~/components/magicui/bento-grid";
 
@@ -68,15 +69,28 @@ const caseStudies = [
 
 export function CaseStudySection() {
   return (
-    <section className="relative container hidden flex-col items-center justify-center md:flex">
+    <section className="relative container hidden flex-col items-center justify-center py-20 md:flex">
       <SectionHeader
         anchor="case-studies"
         title="Success Stories"
         description="Real results from personalized cold outreach campaigns."
       />
-      <div className="grid w-3/4 grid-cols-1 gap-2 sm:w-full sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4">
-        {caseStudies.map((caseStudy) => (
-          <div key={caseStudy.title} className="w-full p-2">
+      <motion.div 
+        initial={{ opacity: 0 }}
+        whileInView={{ opacity: 1 }}
+        transition={{ duration: 0.6 }}
+        viewport={{ once: true, margin: "-100px" }}
+        className="grid w-full grid-cols-1 gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4"
+      >
+        {caseStudies.map((caseStudy, index) => (
+          <motion.div 
+            key={caseStudy.title} 
+            className="w-full p-2"
+            initial={{ opacity: 0, y: 20 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: index * 0.05 }}
+            viewport={{ once: true, margin: "-100px" }}
+          >
             <BentoCard
               {...{
                 Icon: caseStudy.icon,
@@ -84,12 +98,12 @@ export function CaseStudySection() {
                 description: caseStudy.description,
                 href: `/chat?replay=${caseStudy.id}`,
                 cta: "View outreach strategy",
-                className: "w-full h-full",
+                className: "w-full h-full shadow-soft hover:shadow-md",
               }}
             />
-          </div>
+          </motion.div>
         ))}
-      </div>
+      </motion.div>
     </section>
   );
 }

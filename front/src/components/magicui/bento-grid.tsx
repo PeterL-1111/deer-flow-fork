@@ -1,5 +1,6 @@
 import { ArrowRightIcon } from "@radix-ui/react-icons";
 import type { ComponentPropsWithoutRef, ReactNode } from "react";
+import { motion } from "framer-motion";
 
 import { Button } from "~/components/ui/button";
 import { cn } from "~/lib/utils";
@@ -22,7 +23,7 @@ interface BentoCardProps extends ComponentPropsWithoutRef<"div"> {
 const BentoGrid = ({ children, className, ...props }: BentoGridProps) => {
   return (
     <div
-      className={cn("grid w-full auto-rows-auto grid-cols-2 gap-4", className)}
+      className={cn("grid w-full auto-rows-auto grid-cols-2 gap-6", className)}
       {...props}
     >
       {children}
@@ -45,24 +46,28 @@ const BentoCard = ({
     className={cn(
       "group relative col-span-3 flex flex-col justify-between overflow-hidden rounded-xl",
       // light styles
-      "bg-background [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)]",
+      "bg-white [box-shadow:0_0_0_1px_rgba(0,0,0,.03),0_2px_4px_rgba(0,0,0,.05),0_12px_24px_rgba(0,0,0,.05)]",
       // dark styles
-      "dark:bg-background transform-gpu dark:[box-shadow:0_-20px_80px_-20px_#ffffff1f_inset] dark:[border:1px_solid_rgba(255,255,255,.1)]",
+      "dark:bg-card transform-gpu dark:[box-shadow:0_-20px_80px_-20px_#ffffff1f_inset] dark:[border:1px_solid_rgba(255,255,255,.1)]",
       className,
     )}
     {...props}
   >
     {background && <div>{background}</div>}
     <a
-      className="z-10 flex transform-gpu flex-col gap-1 p-6 transition-all duration-300 group-hover:-translate-y-5"
+      className="z-10 flex transform-gpu flex-col gap-1 p-6 transition-all duration-300 group-hover:-translate-y-2"
       href={href}
       target="_blank"
     >
-      <Icon className="h-12 w-12 origin-left transform-gpu text-neutral-700 transition-all duration-300 ease-in-out group-hover:scale-60" />
-      <h3 className="text-xl font-semibold text-neutral-700 dark:text-neutral-300">
-        {name}
-      </h3>
-      <p className="max-w-lg text-neutral-400">{description}</p>
+      <div className="flex items-center gap-3">
+        <div className="flex h-12 w-12 items-center justify-center rounded-full bg-gradient-to-br from-[#5046E5] to-[#6366F1] text-white">
+          <Icon className="h-6 w-6" />
+        </div>
+        <h3 className="text-xl font-semibold text-neutral-700 dark:text-neutral-300">
+          {name}
+        </h3>
+      </div>
+      <p className="mt-2 text-neutral-500 dark:text-neutral-400">{description}</p>
     </a>
 
     <div
