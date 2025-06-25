@@ -3,6 +3,8 @@
 
 export default {
   plugins: {
-    "@tailwindcss/postcss": {},
+    "@tailwindcss/postcss": {
+      config: "./tailwind.config.js"
+    },
   },
 };
