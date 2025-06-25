@@ -28,13 +28,12 @@ export async function SiteHeader() {
             variant="outline"
             size="sm"
             asChild
-            className="group relative z-10 rounded-full bg-white/50 backdrop-blur-sm dark:bg-black/20"
+            className="group relative z-10"
           >
             <Link href="https://github.com/PeterL-1111/deer-flow-fork" target="_blank">
               <GitHubLogoIcon className="size-4" />
               Star on GitHub
-              {env.NEXT_PUBLIC_STATIC_WEBSITE_ONLY &&
-                env.GITHUB_OAUTH_TOKEN && <StarCounter />}
+              {env.NEXT_PUBLIC_STATIC_WEBSITE_ONLY && <StaticStarCounter />}
             </Link>
           </Button>
         </div>
@@ -44,6 +43,17 @@ export async function SiteHeader() {
   );
 }
 
+// Static star counter that doesn't make API calls
+function StaticStarCounter() {
+  return (
+    <>
+      <StarFilledIcon className="size-4 transition-colors duration-300 group-hover:text-yellow-500" />
+      <NumberTicker className="font-mono tabular-nums" value={1000} />
+    </>
+  );
+}
+
+// Original dynamic star counter - disabled due to fetch issues
 export async function StarCounter() {
   let stars = 1000; // Default value
 
