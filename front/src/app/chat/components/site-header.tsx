@@ -28,7 +28,7 @@ export async function SiteHeader() {
             variant="outline"
             size="sm"
             asChild
-            className="group relative z-10"
+            className="group relative z-10 rounded-full bg-white/50 backdrop-blur-sm dark:bg-black/20"
           >
             <Link href="https://github.com/PeterL-1111/deer-flow-fork" target="_blank">
               <GitHubLogoIcon className="size-4" />

@@ -13,6 +13,7 @@ import { env } from "~/env";
 export function Jumbotron() {
   return (
     <section className="flex h-[95vh] w-full flex-col items-center justify-center pb-15">
+      <div className="absolute inset-0 z-0 bg-gradient-to-b from-indigo-50/50 via-white to-white dark:from-indigo-950/20 dark:via-background dark:to-background"></div>
       <FlickeringGrid
         id="ghost-hero-bg"
         className={`absolute inset-0 z-0 [mask-image:radial-gradient(800px_circle_at_center,white,transparent)]`}
@@ -44,7 +45,7 @@ export function Jumbotron() {
           through inbox noise and drive meaningful conversations.
         </p>
         <div className="flex flex-col gap-4 md:flex-row md:gap-6">
-          <Button className="bg-ghost-gradient hover:opacity-90 text-lg text-white shadow-lg md:w-48" size="lg" asChild>
+          <Button className="bg-ghost-gradient hover:opacity-90 text-lg text-white shadow-lg md:w-48 rounded-xl" size="lg" asChild>
             <Link
               target={
                 env.NEXT_PUBLIC_STATIC_WEBSITE_ONLY ? "_blank" : undefined
@@ -60,7 +61,7 @@ export function Jumbotron() {
           </Button>
           {!env.NEXT_PUBLIC_STATIC_WEBSITE_ONLY && (
             <Button
-              className="border-ghost-blue text-ghost-blue hover:bg-ghost-blue hover:text-white text-lg md:w-42"
+              className="border-ghost-blue text-ghost-blue hover:bg-ghost-blue hover:text-white text-lg md:w-42 rounded-xl"
               size="lg"
               variant="outline"
               asChild

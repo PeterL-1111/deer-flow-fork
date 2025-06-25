@@ -124,7 +124,7 @@ export function InputBox({
   return (
     <div
       className={cn(
-        "bg-card relative flex h-full w-full flex-col rounded-[24px] border",
+        "bg-card relative flex h-full w-full flex-col rounded-[24px] border shadow-sm",
         className,
       )}
       ref={containerRef}
@@ -226,15 +226,15 @@ export function InputBox({
             >
               <Button
                 className={cn(
-                  "rounded-2xl",
-                  enableDeepThinking && "!border-brand !text-brand",
+                  "rounded-xl",
+                  enableDeepThinking && "!border-brand !text-brand bg-brand/5",
                 )}
                 variant="outline"
                 onClick={() => {
                   setEnableDeepThinking(!enableDeepThinking);
                 }}
               >
-                <Lightbulb /> Deep Thinking
+                <Lightbulb className={enableDeepThinking ? "text-brand" : ""} /> Deep Thinking
               </Button>
             </Tooltip>
           )}
@@ -256,15 +256,15 @@ export function InputBox({
           >
             <Button
               className={cn(
-                "rounded-2xl",
-                backgroundInvestigation && "!border-brand !text-brand",
+                "rounded-xl",
+                backgroundInvestigation && "!border-brand !text-brand bg-brand/5",
               )}
               variant="outline"
               onClick={() =>
                 setEnableBackgroundInvestigation(!backgroundInvestigation)
               }
             >
-              <Detective /> Investigation
+              <Detective className={backgroundInvestigation ? "text-brand" : ""} /> Investigation
             </Button>
           </Tooltip>
           <ReportStyleDialog />
@@ -275,7 +275,7 @@ export function InputBox({
               variant="ghost"
               size="icon"
               className={cn(
-                "hover:bg-accent h-10 w-10",
+                "hover:bg-accent h-10 w-10 rounded-full",
                 isEnhancing && "animate-pulse",
               )}
               onClick={handleEnhancePrompt}
@@ -294,7 +294,7 @@ export function InputBox({
             <Button
               variant="outline"
               size="icon"
-              className={cn("h-10 w-10 rounded-full")}
+              className={cn("h-10 w-10 rounded-full bg-primary text-primary-foreground shadow-sm hover:bg-primary/90")}
               onClick={() => inputRef.current?.submit()}
             >
               {responding ? (

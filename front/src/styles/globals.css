@@ -128,7 +128,7 @@
 
 :root {
   --radius: 0.625rem;
-  --app-background: #FFFFFF;
+  --app-background: #f8fafc;
   --background: #FFFFFF;
   --foreground: #1F2937;
   --card: #FFFFFF;
@@ -183,37 +183,37 @@
 }
 
 .dark {
-  --background: #1F2937;
-  --app-background: #1F2937;
+  --background: #0f172a;
+  --app-background: #0f172a;
   --foreground: #FFFFFF;
-  --card: #374151;
+  --card: #1e293b;
   --card-foreground: #FFFFFF;
-  --popover: #374151;
+  --popover: #1e293b;
   --popover-foreground: #FFFFFF;
   --primary: #6366F1;
   --primary-foreground: #FFFFFF;
-  --secondary: #4B5563;
+  --secondary: #334155;
   --secondary-foreground: #FFFFFF;
-  --muted: #4B5563;
-  --muted-foreground: #9CA3AF;
-  --accent: #4B5563;
+  --muted: #334155;
+  --muted-foreground: #94a3b8;
+  --accent: #334155;
   --accent-foreground: #FFFFFF;
   --destructive: #EF4444;
-  --border: #4B5563;
-  --input: #374151;
+  --border: #334155;
+  --input: #1e293b;
   --ring: #6366F1;
   --chart-1: #6366F1;
   --chart-2: #34D399;
   --chart-3: #FBBF24;
   --chart-4: #F87171;
   --chart-5: #A78BFA;
-  --sidebar: #374151;
+  --sidebar: #1e293b;
   --sidebar-foreground: #FFFFFF;
   --sidebar-primary: #6366F1;
   --sidebar-primary-foreground: #FFFFFF;
-  --sidebar-accent: #4B5563;
+  --sidebar-accent: #334155;
   --sidebar-accent-foreground: #FFFFFF;
-  --sidebar-border: #4B5563;
+  --sidebar-border: #334155;
   --sidebar-ring: #6366F1;
   --brand: #6366F1;
 
@@ -223,8 +223,8 @@
   --communication-green: #34D399;
   --communication-green-light: #6EE7B7;
   --charcoal: #FFFFFF;
-  --light-gray: #4B5563;
-  --off-white: #374151;
+  --light-gray: #334155;
+  --off-white: #1e293b;
 
   --novel-highlight-default: #000000;
   --novel-highlight-purple: #3f2c4b;
@@ -325,6 +325,42 @@
 
 .icon-disabled {
   color: var(--light-gray);
+}
+
+/* Glass morphism effects */
+.glass-card {
+  background: rgba(255, 255, 255, 0.15);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+}
+
+.dark .glass-card {
+  background: rgba(30, 41, 59, 0.7);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+/* Improved button styles */
+.btn-primary {
+  @apply bg-ghost-gradient text-white font-medium py-2 px-4 rounded-lg shadow-md hover:opacity-90 transition-all duration-200;
+}
+
+.btn-secondary {
+  @apply bg-white text-ghost-blue border border-ghost-blue font-medium py-2 px-4 rounded-lg shadow-sm hover:bg-ghost-blue/5 transition-all duration-200;
+}
+
+.dark .btn-secondary {
+  @apply bg-sidebar border-ghost-blue text-ghost-blue hover:bg-ghost-blue/10;
+}
+
+/* Card improvements */
+.modern-card {
+  @apply bg-white rounded-xl border border-light-gray/30 shadow-sm hover:shadow-md transition-all duration-200;
+}
+
+.dark .modern-card {
+  @apply bg-card border-sidebar-border hover:border-sidebar-border/80;
 }
 
 * {

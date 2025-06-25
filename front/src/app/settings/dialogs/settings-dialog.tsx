@@ -107,36 +107,34 @@ export function SettingsDialog() {
           </DialogDescription>
         </DialogHeader>
         <Tabs value={activeTabId}>
-          <div className="flex h-120 w-full overflow-auto border-y">
-            <ul className="flex w-50 shrink-0 border-r p-1">
-              <div className="size-full">
-                {SETTINGS_TABS.map((tab) => (
-                  <li
-                    key={tab.id}
-                    className={cn(
-                      "hover:accent-foreground hover:bg-accent mb-1 flex h-8 w-full cursor-pointer items-center gap-1.5 rounded px-2",
-                      activeTabId === tab.id &&
-                        "!bg-primary !text-primary-foreground",
-                    )}
-                    onClick={() => setActiveTabId(tab.id)}
-                  >
-                    <tab.icon size={16} />
-                    <span>{tab.label}</span>
-                    {tab.badge && (
-                      <Badge
-                        variant="outline"
-                        className={cn(
-                          "border-muted-foreground text-muted-foreground ml-auto px-1 py-0 text-xs",
-                          activeTabId === tab.id &&
-                            "border-primary-foreground text-primary-foreground",
-                        )}
-                      >
-                        {tab.badge}
-                      </Badge>
-                    )}
-                  </li>
-                ))}
-              </div>
+          <div className="flex h-120 w-full overflow-hidden rounded-xl border bg-card/50 backdrop-blur-sm">
+            <ul className="flex w-50 shrink-0 flex-col space-y-1 border-r bg-muted/30 p-2">
+              {SETTINGS_TABS.map((tab) => (
+                <li
+                  key={tab.id}
+                  className={cn(
+                    "hover:bg-accent hover:text-accent-foreground flex h-10 w-full cursor-pointer items-center gap-2 rounded-lg px-3 transition-colors",
+                    activeTabId === tab.id &&
+                      "bg-primary text-primary-foreground shadow-sm",
+                  )}
+                  onClick={() => setActiveTabId(tab.id)}
+                >
+                  <tab.icon size={18} />
+                  <span className="text-sm font-medium">{tab.label}</span>
+                  {tab.badge && (
+                    <Badge
+                      variant="outline"
+                      className={cn(
+                        "border-muted-foreground/50 text-muted-foreground ml-auto px-1 py-0 text-xs",
+                        activeTabId === tab.id &&
+                          "border-primary-foreground/70 text-primary-foreground",
+                      )}
+                    >
+                      {tab.badge}
+                    </Badge>
+                  )}
+                </li>
+              ))}
             </ul>
             <div className="min-w-0 flex-grow">
               <div

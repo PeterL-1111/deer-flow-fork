@@ -67,112 +67,133 @@ export const MCPTab: Tab = ({ settings, onChange }) => {
     },
   };
   return (
-    <div className="flex flex-col gap-4">
+    <div className="flex flex-col gap-6">
       <header>
         <div className="flex items-center justify-between gap-2">
-          <h1 className="text-lg font-medium">MCP Servers</h1>
+          <div>
+            <h1 className="text-xl font-semibold text-foreground">MCP Servers</h1>
+            <p className="text-muted-foreground text-sm mt-1">Manage Model Context Protocol servers</p>
+          </div>
           <AddMCPServerDialog onAdd={handleAddServers} />
         </div>
-        <div className="text-muted-foreground markdown text-sm">
+        <div className="text-muted-foreground markdown text-sm mt-4 p-4 rounded-lg border bg-muted/20">
           The Model Context Protocol boosts Unghost Agent by integrating external
           tools for tasks like private domain searches, web browsing, food
-          ordering, and more. Click here to
+          ordering, and more.{" "}
           <a
-            className="ml-1"
+            className="text-primary hover:underline"
             target="_blank"
             href="https://modelcontextprotocol.io/"
           >
-            learn more about MCP.
+            Learn more about MCP
           </a>
         </div>
       </header>
       <main>
-        <ul id="mcp-servers-list" className="flex flex-col gap-4">
-          {servers.map((server) => {
-            const isNew =
-              server.createdAt &&
-              server.createdAt > Date.now() - 1000 * 60 * 60 * 1;
-            return (
-              <motion.li
-                className={
-                  "!bg-card group relative overflow-hidden rounded-lg border pb-2 shadow duration-300"
-                }
-                key={server.name}
-                {...(isNew && newlyAdded && animationProps)}
-              >
-                <div className="absolute top-3 right-2">
-                  <Tooltip title="Enable/disable server">
-                    <div className="flex items-center gap-2">
-                      <Switch
-                        id="airplane-mode"
-                        checked={server.enabled}
-                        onCheckedChange={(checked) => {
-                          handleToggleServer(server.name, checked);
-                        }}
-                      />
-                    </div>
-                  </Tooltip>
-                </div>
-                <div className="absolute top-1 right-12 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
-                  <Tooltip title="Delete server">
-                    <Button
-                      variant="ghost"
-                      size="icon"
-                      onClick={() => handleDeleteServer(server.name)}
-                    >
-                      <Trash />
-                    </Button>
-                  </Tooltip>
-                </div>
-                <div
-                  className={cn(
-                    "flex flex-col items-start px-4 py-2",
-                    !server.enabled && "text-muted-foreground",
-                  )}
+        <ul id="mcp-servers-list" className="grid gap-4 sm:grid-cols-2">
+          {servers.length === 0 ? (
+            <div className="col-span-2 flex flex-col items-center justify-center p-8 text-center border rounded-xl bg-muted/10">
+              <Blocks className="h-12 w-12 text-muted-foreground mb-4" />
+              <h3 className="text-lg font-medium">No MCP Servers</h3>
+              <p className="text-muted-foreground mt-2 mb-4">Add MCP servers to extend Unghost Agent's capabilities</p>
+              <AddMCPServerDialog onAdd={handleAddServers} />
+            </div>
+          ) : (
+            servers.map((server) => {
+              const isNew =
+                server.createdAt &&
+                server.createdAt > Date.now() - 1000 * 60 * 60 * 1;
+              return (
+                <motion.li
+                  className={
+                    "!bg-card group relative overflow-hidden rounded-xl border pb-2 shadow-sm hover:shadow-md transition-all duration-300"
+                  }
+                  key={server.name}
+                  {...(isNew && newlyAdded && animationProps)}
                 >
+                  <div className="absolute top-3 right-2">
+                    <Tooltip title="Enable/disable server">
+                      <div className="flex items-center gap-2">
+                        <Switch
+                          id="airplane-mode"
+                          checked={server.enabled}
+                          onCheckedChange={(checked) => {
+                            handleToggleServer(server.name, checked);
+                          }}
+                        />
+                      </div>
+                    </Tooltip>
+                  </div>
+                  <div className="absolute top-1 right-12 opacity-0 transition-opacity duration-300 group-hover:opacity-100">
+                    <Tooltip title="Delete server">
+                      <Button
+                        variant="ghost"
+                        size="icon"
+                        onClick={() => handleDeleteServer(server.name)}
+                      >
+                        <Trash className="h-4 w-4 text-destructive" />
+                      </Button>
+                    </Tooltip>
+                  </div>
                   <div
                     className={cn(
-                      "mb-2 flex items-center gap-2",
-                      !server.enabled && "opacity-70",
+                      "flex flex-col items-start px-4 py-3",
+                      !server.enabled && "text-muted-foreground",
                     )}
                   >
-                    <div className="text-lg font-medium">{server.name}</div>
-                    {!server.enabled && (
-                      <div className="bg-primary text-primary-foreground h-fit rounded px-1.5 py-0.5 text-xs">
-                        Disabled
+                    <div
+                      className={cn(
+                        "mb-2 flex items-center gap-2",
+                        !server.enabled && "opacity-70",
+                      )}
+                    >
+                      <div className="text-lg font-medium">{server.name}</div>
+                      <div className="flex gap-1">
+                        {!server.enabled && (
+                          <div className="bg-muted text-muted-foreground h-fit rounded px-1.5 py-0.5 text-xs">
+                            Disabled
+                          </div>
+                        )}
+                        <div className="bg-primary text-primary-foreground h-fit rounded px-1.5 py-0.5 text-xs">
+                          {server.transport}
+                        </div>
+                        {isNew && (
+                          <div className="bg-green-500 text-white h-fit rounded px-1.5 py-0.5 text-xs">
+                            New
+                          </div>
+                        )}
                       </div>
-                    )}
-                    <div className="bg-primary text-primary-foreground h-fit rounded px-1.5 py-0.5 text-xs">
-                      {server.transport}
                     </div>
-                    {isNew && (
-                      <div className="bg-primary text-primary-foreground h-fit rounded px-1.5 py-0.5 text-xs">
-                        New
+                    <div className="mb-2 text-xs text-muted-foreground">
+                      {server.transport === "stdio" ? (
+                        <span>Command: {server.command} {server.args?.join(" ")}</span>
+                      ) : (
+                        <span>URL: {server.url}</span>
+                      )}
+                    </div>
+                    <div
+                      className={cn(
+                        "flex flex-wrap items-center gap-2",
+                        !server.enabled && "opacity-70",
+                      )}
+                    >
+                      <PencilRuler size={16} className="text-primary" />
+                      <div className="text-xs font-medium text-muted-foreground">Available tools:</div>
+                      <div className="flex flex-wrap gap-1 mt-1">
+                        {server.tools.map((tool) => (
+                          <Tooltip key={tool.name} title={tool.description}>
+                            <div className="text-muted-foreground border-muted-foreground/30 w-fit rounded-md border px-2 py-0.5 text-xs bg-muted/20">
+                              {tool.name}
+                            </div>
+                          </Tooltip>
+                        ))}
                       </div>
-                    )}
+                    </div>
                   </div>
-                  <ul
-                    className={cn(
-                      "flex flex-wrap items-center gap-2",
-                      !server.enabled && "opacity-70",
-                    )}
-                  >
-                    <PencilRuler size={16} />
-                    {server.tools.map((tool) => (
-                      <li
-                        key={tool.name}
-                        className="text-muted-foreground border-muted-foreground w-fit rounded-md border px-2"
-                      >
-                        <Tooltip key={tool.name} title={tool.description}>
-                          <div className="w-fit text-sm">{tool.name}</div>
-                        </Tooltip>
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              </motion.li>
-            );
-          })}
+                </motion.li>
+              );
+            })
+          )}
         </ul>
       </main>
     </div>

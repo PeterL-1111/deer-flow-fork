@@ -232,8 +232,8 @@ function MessageBubble({
   return (
     <div
       className={cn(
-        `group flex w-fit max-w-[85%] flex-col rounded-2xl px-4 py-3 text-nowrap shadow`,
-        message.role === "user" && "bg-brand rounded-ee-none",
+        `group flex w-fit max-w-[85%] flex-col rounded-2xl px-4 py-3 text-nowrap shadow-sm`,
+        message.role === "user" && "bg-brand rounded-ee-none text-white",
         message.role === "assistant" && "bg-card rounded-es-none",
         className,
       )}
@@ -280,8 +280,8 @@ function ResearchCard({
     onToggleResearch?.();
   }, [openResearchId, researchId, onToggleResearch]);
   return (
-    <Card className={cn("w-full", className)}>
-      <CardHeader>
+    <Card className={cn("w-full overflow-hidden", className)}>
+      <CardHeader className="pb-3">
         <CardTitle>
           <RainbowText animated={state !== "Report generated"}>
             {title !== undefined && title !== "" ? title : "Deep Research"}
@@ -296,6 +296,7 @@ function ResearchCard({
           <Button
             variant={!openResearchId ? "default" : "outline"}
             onClick={handleOpen}
+            className="rounded-xl"
           >
             {researchId !== openResearchId ? "Open" : "Close"}
           </Button>
@@ -475,8 +476,8 @@ function PlanCard({
           animate={{ opacity: 1, y: 0 }}
           transition={{ duration: 0.3, ease: "easeOut" }}
         >
-          <Card className="w-full">
-            <CardHeader>
+          <Card className="w-full overflow-hidden border shadow-sm">
+            <CardHeader className="pb-3 bg-card/50 backdrop-blur-sm">
               <CardTitle>
                 <Markdown animated={message.isStreaming}>
                   {`### ${
@@ -487,15 +488,18 @@ function PlanCard({
                 </Markdown>
               </CardTitle>
             </CardHeader>
-            <CardContent>
+            <CardContent className="pt-4">
               <Markdown className="opacity-80" animated={message.isStreaming}>
                 {plan.thought}
               </Markdown>
               {plan.steps && (
-                <ul className="my-2 flex list-decimal flex-col gap-4 border-l-[2px] pl-8">
+                <ul className="my-4 flex list-none flex-col gap-4 border-l-[2px] pl-8">
                   {plan.steps.map((step, i) => (
-                    <li key={`step-${i}`}>
-                      <h3 className="mb text-lg font-medium">
+                    <li key={`step-${i}`} className="relative">
+                      <div className="absolute -left-[41px] flex h-6 w-6 items-center justify-center rounded-full bg-primary text-primary-foreground">
+                        {i + 1}
+                      </div>
+                      <h3 className="mb-1 text-lg font-medium">
                         <Markdown animated={message.isStreaming}>
                           {step.title}
                         </Markdown>
@@ -510,7 +514,7 @@ function PlanCard({
                 </ul>
               )}
             </CardContent>
-            <CardFooter className="flex justify-end">
+            <CardFooter className="flex justify-end border-t bg-muted/20 py-3">
               {!message.isStreaming && interruptMessage?.options?.length && (
                 <motion.div
                   className="flex gap-2"
@@ -524,6 +528,7 @@ function PlanCard({
                       variant={
                         option.value === "accepted" ? "default" : "outline"
                       }
+                      className="rounded-xl"
                       disabled={!waitForFeedback}
                       onClick={() => {
                         if (option.value === "accepted") {
@@ -568,8 +573,8 @@ function PodcastCard({
   }, [data]);
   const [isPlaying, setIsPlaying] = useState(false);
   return (
-    <Card className={cn("w-[508px]", className)}>
-      <CardHeader>
+    <Card className={cn("w-[508px] overflow-hidden", className)}>
+      <CardHeader className="pb-3 bg-card/50 backdrop-blur-sm">
         <div className="text-muted-foreground flex items-center justify-between text-sm">
           <div className="flex items-center gap-2">
             {isGenerating ? <LoadingOutlined /> : <Headphones size={16} />}
@@ -611,7 +616,7 @@ function PodcastCard({
       <CardContent>
         {audioUrl ? (
           <audio
-            className="w-full"
+            className="w-full rounded-lg"
             src={audioUrl}
             controls
             onPlay={() => setIsPlaying(true)}

@@ -24,24 +24,28 @@ const REPORT_STYLES = [
     label: "Aggressive",
     description: "Bold, direct, and confident - cuts straight to the point",
     icon: Zap,
+    color: "from-amber-500 to-red-500",
   },
   {
     value: "conservative" as const,
     label: "Conservative",
     description: "Careful, measured, and diplomatic - builds trust gradually",
     icon: Shield,
+    color: "from-blue-500 to-indigo-600",
   },
   {
     value: "go_nuts" as const,
     label: "Go Nuts",
     description: "Creative, energetic, and wildly memorable - breaks all rules",
     icon: Rocket,
+    color: "from-purple-500 to-pink-500",
   },
   {
     value: "friendly" as const,
     label: "Friendly",
     description: "Warm, approachable, and empathetic - builds genuine connections",
     icon: Heart,
+    color: "from-green-400 to-teal-500",
   },
 ];
 
@@ -79,7 +83,10 @@ export function ReportStyleDialog() {
       >
         <DialogTrigger asChild>
           <Button
-            className="!border-brand !text-brand rounded-2xl"
+            className={cn(
+              "rounded-xl",
+              "!border-brand !text-brand bg-brand/5",
+            )}
             variant="outline"
           >
             <CurrentIcon className="h-4 w-4" /> {currentStyleConfig.label}
@@ -103,12 +110,18 @@ export function ReportStyleDialog() {
               <button
                 key={style.value}
                 className={cn(
-                  "hover:bg-accent flex items-start gap-3 rounded-lg border p-4 text-left transition-colors",
-                  isSelected && "border-primary bg-accent",
+                  "hover:bg-accent flex items-start gap-3 rounded-lg border p-4 text-left transition-all",
+                  isSelected && "border-primary bg-primary/5 shadow-sm",
                 )}
                 onClick={() => handleStyleChange(style.value)}
               >
-                <Icon className="mt-0.5 h-5 w-5 shrink-0" />
+                <div className={cn(
+                  "flex h-10 w-10 items-center justify-center rounded-full bg-gradient-to-br",
+                  style.color,
+                  "text-white"
+                )}>
+                  <Icon className="h-5 w-5" />
+                </div>
                 <div className="flex-1 space-y-1">
                   <div className="flex items-center gap-2">
                     <h4 className="font-medium">{style.label}</h4>
