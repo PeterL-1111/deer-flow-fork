@@ -3,9 +3,9 @@
   "version": "1.0.0",
   "description": "AI-powered personalized cold outreach message generation",
   "scripts": {
-    "install-python-deps": "python -m pip install --upgrade pip && python -m pip install -r requirements.txt",
-    "dev": "python main.py --interactive",
-    "start": "python server.py",
+    "install-python-deps": "uv sync",
+    "dev": "uv run python main.py --interactive",
+    "start": "uv run python server.py",
     "web": "cd front && npm run dev",
     "setup": "npm run install-python-deps"
   },
