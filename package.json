@@ -1,15 +1,28 @@
 {
   "name": "unghost-agent",
   "version": "1.0.0",
-  "description": "AI-powered personalized cold outreach message generation",
+  "description": "AI-powered research and content generation platform",
+  "main": "scripts/run-dev.js",
   "scripts": {
-    "install-python-deps": "python -m pip install -r requirements.txt",
     "dev": "node scripts/run-dev.js",
-    "start": "python server.py",
-    "web": "cd front && pnpm run dev",
-    "setup": "npm run install-python-deps"
+    "dev:simple": "python3 main-simple.py",
+    "dev:fallback": "echo 'Starting fallback mode...' && python3 main-simple.py",
+    "build": "echo 'Build script not implemented'",
+    "test": "echo 'Test script not implemented'",
+    "lint": "echo 'Lint script not implemented'"
   },
-  "dependencies": {
-    "task-master-ai": "^0.18.0"
+  "keywords": [
+    "ai",
+    "research",
+    "content-generation",
+    "automation"
+  ],
+  "author": "Unghost Agent Team",
+  "license": "MIT",
+  "dependencies": {},
+  "devDependencies": {},
+  "engines": {
+    "node": ">=16.0.0",
+    "python": ">=3.8.0"
   }
 }
